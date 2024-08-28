@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/web-ai",
+            "outputPath": "dist/webai",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -31,12 +31,15 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+             "src/assets",
+                            {
+                                "glob": "_redirects",
+                                "input": "src",
+                                "output": "/"
+                            }
             ],
             "styles": [
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -89,10 +92,9 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+
+               "src/assets"
+
             ],
             "styles": [
               "src/styles.css"

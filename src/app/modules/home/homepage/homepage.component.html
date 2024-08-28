@@ -1,0 +1,314 @@
+<!-- header -->
+<header
+  [ngClass]="{ 'bg-white shadow-lg': isScrolled }"
+  class="fixed top-0 right-0 left-0 transition-all duration-300 z-50"
+>
+  <nav class="max-w-7xl mx-auto p-5">
+    <div class="flex items-center justify-between">
+      <a
+        href="/"
+        class="text-black font-bold text-lg flex flex-row items-center gap-1"
+      >
+        <img
+          src="../../../../assets/images/logo/logo.svg"
+          alt="logo"
+          class="h-12 mr-5"
+        />
+        <p class="md:text-4xl">Adapti<span class="text-primary">Learn</span></p>
+      </a>
+
+      <div class="hidden md:flex space-x-10">
+        <a
+          class="text-primary hover:text-blue-800 cursor-pointer py-2 px-4"
+          (click)="scrollToElement('home')"
+          >Home</a
+        >
+
+        <a
+          (click)="scrollToElement('services')"
+          class="text-black hover:text-blue-800 cursor-pointer py-2 px-4"
+          >Servicios</a
+        >
+        <a
+          class="text-black hover:text-blue-800 cursor-pointer py-2 px-4"
+          (click)="scrollToElement('caracter')"
+          >Caracteristicas</a
+        >
+        <a
+          routerLink="/Auth/login"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+          >Iniciar Sesión</a
+        >
+      </div>
+
+      <div class="md:hidden">
+        <button (click)="toggleMenu()" class="text-black text-2xl">
+          <i class="bx bx-menu"></i>
+        </button>
+      </div>
+    </div>
+
+    <div
+      [ngClass]="{ hidden: !isMenuOpen }"
+      class="flex flex-col text-end bg-white md:hidden"
+    >
+      <a class="text-primary block py-2" (click)="scrollToElement('home')"
+        >Home</a
+      >
+      <a
+        class="text-black block hover:text-blue-800 py-2"
+        (click)="scrollToElement('services')"
+        >Servicios</a
+      >
+      <a
+        class="text-black block py-2 hover:text-blue-800"
+        (click)="scrollToElement('caracter')"
+        >Caracteristicas</a
+      >
+      <a
+        routerLink="/Auth/login"
+        class="text-black block py-2 hover:text-blue-800"
+        >Iniciar Sesion</a
+      >
+    </div>
+  </nav>
+</header>
+
+<!-- banner section -->
+
+<section id="home" class="max-w-7xl mx-auto px-5 mt-10 md:mt-36">
+  <div
+    class="py-10 text-black flex flex-col md:flex-row justify-between items-center gap-4"
+  >
+    <!-- left side -->
+    <div class="md:pl-24">
+      <p class="text-xl font-inter font-medium mb-4">Bienvenidos a</p>
+
+      <h1
+        class="text-4xl font-bold font-inter mb-5 tracking-[3.22px] md:text-5xl"
+      >
+        <span>Adapti</span>
+
+        <span class="text-primary">Learn</span>
+      </h1>
+      <p class="text-2x1 font-semibold mb-5">
+        <em>Innovación educativa impulsada por Inteligencia Artificial.</em>
+      </p>
+      <p class="mb-12 md:w-full text-justify leading-8">
+        En <span class="text-primary">AdaptiLearn</span>, transformamos la
+        educación mediante la integración de inteligencia artificial avanzada.
+        Nuestra aplicación facilita la gestión educativa para docentes y ofrece
+        a los estudiantes una experiencia de aprendizaje personalizada, centrada
+        en sus necesidades individuales.
+      </p>
+      <a
+        routerLink="/Auth/register"
+        class="py-4 px-10 rounded-md bg-primary text-white font-bold hover:bg-indigo-500"
+      >
+        Registrate
+      </a>
+    </div>
+
+    <!-- right side -->
+
+    <div class="w-1/2 order-first md:order-none">
+      <img
+        src="../../../../assets/images/logo/logo.svg"
+        alt="logo"
+        class="w- md:w-[420px] max-w-6xl md:ml-44"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- services section -->
+
+<section id="services" class="max-w-7xl mx-auto px-5 my-12">
+  <div class="text-center">
+    <p class="font-monstserrat text-4xl font-bold mb-3">
+      Mis
+
+      <span class="text-primary"> Servicios </span>
+    </p>
+  </div>
+
+  <!-- service cards -->
+  <div
+    class="my-16 flex flex-col md:flex-row justify-around items-center gap-12"
+  >
+    <div
+      class="w-[354px] px-5 py-8 rounded-lg border border-primary shadow-lg cursor-pointer"
+    >
+      <img
+        src="../../../../assets/images/services/services_learning.svg"
+        alt=""
+        class="w-[196px] mb-12 mx-auto"
+      />
+      <h5 class="text-center my-5 text-x1 text-primary font-semibold">
+        Diseño de Experiencias de Aprendizaje Personalizadas
+      </h5>
+      <p class="text-justify">
+        Crear cursos y actividades adaptadas a las necesidades y preferencias
+        individuales de cada estudiante para que el aprendizaje sea más efectivo
+        y motivador.
+      </p>
+    </div>
+    <div
+      class="w-[354px] px-5 py-8 rounded-lg border border-primary shadow-lg cursor-pointer"
+    >
+      <img
+        src="https://static.vecteezy.com/system/resources/previews/021/059/825/original/chatgpt-logo-chat-gpt-icon-on-green-background-free-vector.jpg"
+        alt=""
+        class="w-[196px] mb-12 mx-auto"
+      />
+      <h5 class="text- text-primary font-semibold text-center my-5 text-x1">
+        Soporte en Integración de Tecnologías Avanzadas
+      </h5>
+      <p class="text-justify">
+        Utilizamos la API de OpenAI GPT-4o Mini. Esta API permite personalizar
+        el aprendizaje y mejorar la experiencia educativa mediante la generación
+        de contenido inteligente y recomendaciones adaptadas a las necesidades
+        individuales de cada usuario
+      </p>
+    </div>
+    <div
+      class="w-[354px] px-5 py-8 rounded-lg border border-primary shadow-lg cursor-pointer"
+    >
+      <img
+        src="../../../../assets/images/services/services_thinking.svg"
+        alt=""
+        class="w-[196px] mb-12 mx-auto"
+      />
+      <h5 class="text-center text-primary font-semibold my-5 text-x1">
+        Optimización de Contenidos Educativos
+      </h5>
+      <p class="text-justify">
+        Revisar y mejorar los materiales educativos en la plataforma para
+        asegurar que sean útiles y adecuados para los objetivos de aprendizaje
+        de cada usuario.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- projects section -->
+
+<section id="caracter" class="px-5 my-32 mx-auto max-w-7xl">
+  <div class="text-center">
+    <h3 class="text-4xl font-bold mb-5">
+      Características <span class="text-primary"> Clave </span>
+    </h3>
+    <p class="mb-6 md:px-12 mx-auto">
+      En nuestra aplicación, nos enfocamos en ofrecer experiencias
+      personalizadas e interactivas. Utilizamos tecnologías avanzadas para
+      asegurar una adaptación precisa a las necesidades del usuario y
+      proporcionar análisis detallados que impulsan la mejora continua.
+    </p>
+  </div>
+
+  <!-- projects card -->
+
+  <!-- Swiper -->
+  <div class="swiper mySwiper w-full h-full">
+    <div class="swiper-wrapper">
+      <!-- Slide 1 -->
+      <div
+        class="swiper-slide py-8 px-3 text-black border border-indigo-500 flex flex-col justify-center items-center rounded-lg shadow-lg shadow-gray-500/50"
+      >
+        <img
+          src="../../../../assets/images/services/caracter_contenido.svg"
+          alt="Adaptabilidad de Contenidos"
+          class="block w-22 h-22 object-cover mx-auto mb-2"
+        />
+        <h3 class="text-lg text-primary font-semibold text-center mb-2">
+          Adaptabilidad de Contenidos
+        </h3>
+        <p class="text-sm px-2 my-5 text-justify">
+          Contenido educativo adaptado automáticamente al nivel y estilo de
+          aprendizaje del usuario.
+        </p>
+      </div>
+      <!-- Slide 2 -->
+      <div
+        class="swiper-slide py-8 px-3 text-black border border-indigo-500 flex flex-col justify-center items-center rounded-lg shadow-lg shadow-gray-500/50"
+      >
+        <img
+          src="../../../../assets/images/services/caracter_dinamic.svg"
+          alt="Interacción Dinámica"
+          class="block w-22 h-22 object-cover mx-auto mb-2"
+        />
+        <h3 class="text-lg text-primary font-semibold text-center mb-2">
+          Interacción Dinámica
+        </h3>
+        <p class="text-sm px-2 my-5 text-justify">
+          Herramientas interactivas que permiten a los estudiantes participar
+          activamente en su proceso de aprendizaje.
+        </p>
+      </div>
+      <!-- Slide 3 -->
+      <div
+        class="swiper-slide py-8 px-3 text-black border border-indigo-500 flex flex-col justify-center items-center rounded-lg shadow-lg shadow-gray-500/50"
+      >
+        <img
+          src="../../../../assets/images/services/caracter_chart.svg"
+          alt="Análisis de Progreso"
+          class="block w-22 h-22 object-cover mx-auto mb-2"
+        />
+        <h3 class="text-lg text-primary font-semibold text-center mb-2">
+          Análisis de Progreso
+        </h3>
+        <p class="text-sm px-2 my-5 text-justify">
+          Informes detallados sobre el progreso del estudiante y recomendaciones
+          para mejorar el aprendizaje.
+        </p>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</section>
+
+<!-- footer -->
+
+<footer class="bg-white rounded-lg shadow m-4">
+  <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <a
+        href="https://flowbite.com/"
+        class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
+      >
+        <img
+          src="../../../../assets/images/logo/logo.svg"
+          alt="logo"
+          class="h-14"
+        />
+        <span
+          class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+          >Flowbite</span
+        >
+      </a>
+      <ul
+        class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+      >
+        <li>
+          <a href="#" class="hover:underline me-4 md:me-6">Acerca de</a>
+        </li>
+        <li>
+          <a href="#" class="hover:underline me-4 md:me-6"
+            >Política de Privacidad</a
+          >
+        </li>
+        <li>
+          <a href="#" class="hover:underline me-4 md:me-6">Licencias</a>
+        </li>
+        <li>
+          <a href="#" class="hover:underline">Contactos</a>
+        </li>
+      </ul>
+    </div>
+    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+    <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400"
+      >© 2024 <a class="hover:underline">AdaptiLearn™</a>. Derechos
+      Reservados.</span
+    >
+  </div>
+</footer>
