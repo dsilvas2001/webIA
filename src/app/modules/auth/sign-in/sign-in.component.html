@@ -23,7 +23,7 @@
       <form
         class="flex flex-col pt-3 md:pt-8"
         [formGroup]="authForm"
-        onsubmit="event.preventDefault();"
+        (ngSubmit)="onSubmit()"
       >
         <div class="flex flex-col pt-4">
           <label for="email" class="text-lg">Email</label>
@@ -78,7 +78,6 @@
           type="submit"
           [disabled]="authForm.invalid"
           (click)="sesionActive()"
-          routerLink="/loading"
           value="Iniciar Sesion"
           class="bg-blue-500 cursor-pointer text-white font-bold text-lg rounded-full py-2 px-4 hover:bg-blue-700 mt-8"
         />
@@ -107,7 +106,7 @@
 
 <app-notifications
   [statusnotification]="statusnotification"
-  title="Sesión Cerrada"
-  message="Has cerrado sesión exitosamente. Esperamos verte pronto. ¡Cuídate!"
-  type="logout"
+  [title]="notificationTitle"
+  [message]="notificationMessage"
+  [type]="notificationType"
 ></app-notifications>

@@ -5,21 +5,76 @@
       Gestion de Estudiantes
     </div>
 
-    <div class="flex flex-row-reverse py-3 pr-12">
-      <label
-        for="fileInput"
-        class="px-5 py-2.5 flex justify-between gap-3 text-sm font-medium text-white items-center bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer"
-      >
-        <i class="fa-solid fa-file-excel fa-lg"></i>
-        Cargar Excel
-      </label>
+    <div class="flex flex-row-reverse py-3 pr-12 gap-4">
+      <div class="p-0">
+        <label
+          for="fileInput"
+          class="px-5 py-2.5 flex justify-between gap-3 text-sm font-medium text-white items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center cursor-pointer"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#clip0_3098_154395)">
+              <path
+                d="M13.3333 13.3332L9.99997 9.9999M9.99997 9.9999L6.66663 13.3332M9.99997 9.9999V17.4999M16.9916 15.3249C17.8044 14.8818 18.4465 14.1806 18.8165 13.3321C19.1866 12.4835 19.2635 11.5359 19.0351 10.6388C18.8068 9.7417 18.2862 8.94616 17.5555 8.37778C16.8248 7.80939 15.9257 7.50052 15 7.4999H13.95C13.6977 6.52427 13.2276 5.61852 12.5749 4.85073C11.9222 4.08295 11.104 3.47311 10.1817 3.06708C9.25943 2.66104 8.25709 2.46937 7.25006 2.50647C6.24304 2.54358 5.25752 2.80849 4.36761 3.28129C3.47771 3.7541 2.70656 4.42249 2.11215 5.23622C1.51774 6.04996 1.11554 6.98785 0.935783 7.9794C0.756025 8.97095 0.803388 9.99035 1.07431 10.961C1.34523 11.9316 1.83267 12.8281 2.49997 13.5832"
+                stroke="currentColor"
+                stroke-width="1.67"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_3098_154395">
+                <rect width="20" height="20" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+          Cargar Excel
+        </label>
 
-      <input
-        id="fileInput"
-        type="file"
-        class="hidden"
-        (change)="readExcel($event)"
-      />
+        <input
+          id="fileInput"
+          type="file"
+          class="hidden"
+          (change)="readExcel($event)"
+        />
+      </div>
+      <div class="p-0">
+        <label
+          for="fileSubmit"
+          class="px-5 py-2.5 flex justify-between gap-3 text-sm font-medium text-white items-center bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center cursor-pointer"
+        >
+          <i class="fa-solid fa-plus fa-lg"></i>
+          Añadir Estudiante
+        </label>
+
+        <input
+          id="fileSubmit"
+          type="submit"
+          class="hidden"
+          (click)="openModal()"
+        />
+      </div>
+      <div class="p-0">
+        <label
+          for="mostrarUser"
+          class="px-5 py-2.5 flex justify-between gap-3 text-sm font-medium text-white items-center bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center cursor-pointer"
+        >
+          <i class="fa-solid fa-spinner fa-lg"></i>
+          Mostrar Estudiantes
+        </label>
+
+        <input
+          id="mostrarUser"
+          type="submit"
+          class="hidden"
+          (click)="mostrarUser()"
+        />
+      </div>
     </div>
 
     <div
@@ -53,76 +108,46 @@
             </tr>
           </thead>
           <tbody class="bg-white text-black">
-            <tr *ngFor="let data of excelData">
+            <tr
+              *ngFor="
+                let data of (currentDataSource === 'users' ? users : excelData)
+                  | paginate : { itemsPerPage: 5, currentPage: p }
+              "
+            >
               <td class="py-4 px-6 border-b border-gray-200">
-                {{ data[0] }}
+                {{ currentDataSource === "users" ? data.name : data[0] }}
               </td>
               <td class="py-4 px-6 border-b border-gray-200">
-                {{ data[1] }}
+                {{ currentDataSource === "users" ? data.email : data[1] }}
               </td>
               <td class="py-4 px-6 border-b border-gray-200">
-                {{ data[2] }}
+                {{ currentDataSource === "users" ? data.courseName : data[2] }}
               </td>
               <td class="py-4 px-6 border-b border-gray-200">
                 <span
-                  class="p-2 rounded-xl text-white font-semibold"
+                  class="p-2 rounded-xl font-semibold"
                   [ngClass]="{
-                    'bg-green-500': data[3] === 'ACTIVO',
-                    'bg-red-500': data[3] === 'INACTIVO'
+                    'bg-green-100 text-green-600':
+                      currentDataSource === 'users'
+                        ? data.status.toLowerCase() == 'activo'
+                        : data[3].toLowerCase() == 'activo',
+                    'bg-red-100 text-red-600':
+                      currentDataSource === 'users'
+                        ? data.status.toLowerCase() === 'inactivo'
+                        : data[3].toLowerCase() === 'inactivo'
                   }"
                 >
-                  {{ data[3] }}
+                  {{ currentDataSource === "users" ? data.status : data[3] }}
                 </span>
               </td>
             </tr>
+            <pagination-controls
+              (pageChange)="p = $event"
+            ></pagination-controls>
           </tbody>
         </table>
 
         <!-- Diseño en tarjetas para pantallas pequeñas -->
-        <!-- <div class="md:hidden space-y-4">
-          <div class="bg-white shadow-md rounded-lg p-4">
-            <div class="mb-2">
-              <span class="block text-gray-600 font-bold">Nombre:</span> John
-              Doe
-            </div>
-            <div class="mb-2">
-              <span class="block text-gray-600 font-bold">Email:</span>
-              johndoegmail.com
-            </div>
-            <div class="mb-2">
-              <span class="block text-gray-600 font-bold">Curso:</span> 2
-              Bachillerato
-            </div>
-            <div class="mb-2">
-              <span class="block text-gray-600 font-bold">Estado:</span>
-              <span
-                class="bg-green-500 text-white py-1 px-2 rounded-full text-xs"
-                >Active</span
-              >
-            </div>
-          </div>
-          <div class="bg-white shadow-md rounded-lg p-4">
-            <div class="mb-2">
-              <span class="block text-gray-600 font-bold">Nombre:</span> John
-              Doe
-            </div>
-            <div class="mb-2">
-              <span class="block text-gray-600 font-bold">Email:</span>
-              johndoegmail.com
-            </div>
-            <div class="mb-2">
-              <span class="block text-gray-600 font-bold">Curso:</span> 2
-              Bachillerato
-            </div>
-            <div class="mb-2">
-              <span class="block text-gray-600 font-bold">Estado:</span>
-              <span
-                class="bg-green-500 text-white py-1 px-2 rounded-full text-xs"
-                >Active</span
-              >
-            </div>
-          </div>
-        </div> -->
 
         <div class="md:hidden space-y-4">
           <div
@@ -159,7 +184,6 @@
     </div>
 
     <app-notifications
-      *ngIf="statusnotification"
       [statusnotification]="statusnotification"
       [title]="notificationTitle"
       [message]="notificationMessage"
@@ -178,5 +202,12 @@
         </div>
       </div>
     </ng-template>
+
+    <app-dashboard-modal-user
+      [statusModal]="statusModal"
+      (closeModalEvent)="closeModal()"
+      (userIdEvent)="onUserIdReceived($event)"
+    >
+    </app-dashboard-modal-user>
   </div>
 </div>

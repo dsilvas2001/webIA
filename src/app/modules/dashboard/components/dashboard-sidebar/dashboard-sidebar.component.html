@@ -28,7 +28,7 @@
   aria-label="Sidebar"
   [ngClass]="{ '-translate-x-full': !isMenuOpen, 'sm:translate-x-0': true }"
 >
-  <div class="h-full px-3 py-4 overflow-y-auto bg-white shadow-2xl">
+  <div class="h-screen px-3 py-4 overflow-y-auto bg-white shadow-2xl">
     <ul class="space-y-2 font-medium">
       <li class="pb-8">
         <div class="flex items-center justify-start rtl:justify-end">
@@ -50,7 +50,7 @@
           src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           alt="avatar"
         />
-        <span class="">Donalds</span>
+        <span class="">{{ userEmail }}</span>
       </li>
 
       <li>
@@ -125,7 +125,7 @@
       </li>
       <li>
         <a
-          href="#"
+          routerLink="/Dashboard/dashboard-home/quiz"
           class="flex items-center p-2 rounded-lg text-gray-500 hover:bg-blue-600 hover:text-white group"
           (click)="setActiveLink('evaluación')"
           [ngClass]="{
@@ -133,7 +133,7 @@
           }"
         >
           <svg
-            class="flex-shrink-0 w-8 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+            class="flex-shrink-0 w-8 h-6"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"

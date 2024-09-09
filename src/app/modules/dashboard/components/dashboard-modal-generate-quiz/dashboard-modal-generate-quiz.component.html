@@ -1,0 +1,138 @@
+<!-- Main modal -->
+<div
+  id="authentication-modal"
+  tabindex="-1"
+  *ngIf="statusModal"
+  aria-hidden="true"
+  class="overflow-y-auto overflow-x-hidden flex z-50 justify-center fixed top-0 right-1 w-full max-h-full"
+>
+  <div class="relative p-9 w-full max-w-md max-h-full">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow-xl">
+      <!-- Modal header -->
+      <div
+        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
+      >
+        <h3 class="text-xl font-semibold text-gray-900">Generar Quiz</h3>
+        <button
+          type="button"
+          (click)="closeModal()"
+          class="end-2.5 text-gray-400 bg-transparent hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-blue-600 dark:hover:text-white"
+          data-modal-hide="authentication-modal"
+        >
+          <svg
+            class="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Modal body -->
+      <div class="p-4 md:p-5">
+        <form
+          class="flex flex-col"
+          (ngSubmit)="onSubmit()"
+          [formGroup]="registerForm"
+        >
+          <div class="flex flex-col pt-4">
+            <label for="subject" class="text-lg">Materia</label>
+            <select
+              id="subject"
+              formControlName="subjectName"
+              class="bg-gray-50 border text-gray-400 text-base rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option selected>Selecciona Una Materia</option>
+              <option *ngFor="let subject of subject">
+                {{ subject }}
+              </option>
+            </select>
+          </div>
+          <div class="flex flex-col pt-4">
+            <label for="topic" class="text-lg">Tema:</label>
+            <input
+              type="text"
+              id="topic"
+              formControlName="topic"
+              placeholder="Ingrese algun tema"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+            />
+            <div
+              class="text-red-500"
+              *ngIf="
+                registerForm.get('topic')?.hasError('required') &&
+                registerForm.get('topic')?.touched
+              "
+            >
+              El tema es obligatorio.
+            </div>
+          </div>
+
+          <div class="flex flex-col pt-4">
+            <label for="email" class="text-lg">Numero de Preguntas</label>
+            <input
+              type="number"
+              id="question"
+              formControlName="question"
+              placeholder="0"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+            />
+            <div
+              class="text-red-500"
+              *ngIf="
+                registerForm.get('question')?.hasError('required') &&
+                registerForm.get('question')?.touched
+              "
+            >
+              La cantidad de Preguntas es obligatorio.
+            </div>
+          </div>
+
+          <div class="flex flex-col pt-4">
+            <label for="password" class="text-lg">Numero de Respuestas</label>
+            <input
+              type="number"
+              id="answer"
+              formControlName="answer"
+              placeholder="0"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+            />
+            <div
+              class="text-red-500"
+              *ngIf="
+                registerForm.get('answer')?.hasError('required') &&
+                registerForm.get('answer')?.touched
+              "
+            >
+              El numero de respuesta es obligatorio.
+            </div>
+          </div>
+
+          <input
+            type="submit"
+            [disabled]="registerForm.invalid"
+            value="Generar Quiz"
+            class="bg-blue-500 cursor-pointer text-white font-bold text-lg rounded-full py-2 px-4 hover:bg-blue-700 mt-8"
+          />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-notifications
+  [statusnotification]="statusnotification"
+  [title]="notificationTitle"
+  [message]="notificationMessage"
+  [type]="notificationType"
+></app-notifications>

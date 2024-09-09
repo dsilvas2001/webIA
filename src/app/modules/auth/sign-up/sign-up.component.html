@@ -1,6 +1,8 @@
 <div class="w-full flex flex-wrap">
   <div class="w-full md:w-1/2 flex flex-col">
-    <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-11">
+    <div
+      class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-11 md:pb-20"
+    >
       <a
         href="/"
         class="text-black font-bold text-lg flex flex-row items-center gap-1"
@@ -22,7 +24,7 @@
       </p>
       <form
         class="flex flex-col pt-3 md:pt-8"
-        onsubmit="event.preventDefault();"
+        (ngSubmit)="onSubmit()"
         [formGroup]="registerForm"
       >
         <div class="flex flex-col pt-4">
@@ -72,6 +74,20 @@
           >
             El formato del email es incorrecto.
           </div>
+        </div>
+
+        <div class="flex flex-col pt-4">
+          <label for="course" class="text-lg">Curso</label>
+          <select
+            id="course"
+            formControlName="courseName"
+            class="bg-gray-50 border text-gray-400 text-base rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option selected>Selecciona Un Curso</option>
+            <option *ngFor="let course of courses" [value]="course.courseName">
+              {{ course.courseName }}
+            </option>
+          </select>
         </div>
 
         <div class="flex flex-col pt-4">
@@ -154,3 +170,9 @@
     />
   </div>
 </div>
+<app-notifications
+  [statusnotification]="statusnotification"
+  [title]="notificationTitle"
+  [message]="notificationMessage"
+  [type]="notificationType"
+></app-notifications>

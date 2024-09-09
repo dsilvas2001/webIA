@@ -1,22 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../core/auth/auth.service';
+import { AuthService } from '../../../../core/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
+  selector: 'app-dashboard-modal-user',
+  templateUrl: './dashboard-modal-user.component.html',
   styles: ``,
 })
-export class SignUpComponent implements OnInit {
+export class DashboardModalUserComponent implements OnInit {
   registerForm: FormGroup;
+  courses: any[] = [];
+
+  @Input() statusModal: boolean = false;
+  @Output() closeModalEvent = new EventEmitter<void>();
+  @Output() userIdEvent = new EventEmitter<string>();
+
   statusnotification: boolean = false;
   notificationTitle: string = '';
   notificationMessage: string = '';
   notificationType: string = '';
 
-  courses: any[] = [];
+  closeModal() {
+    this.statusModal = false;
+    console.log(this.statusModal);
+
+    this.closeModalEvent.emit();
+  }
 
   constructor(
     private formbuilder: FormBuilder,
@@ -46,7 +57,10 @@ export class SignUpComponent implements OnInit {
       return { passwordMismatch: true };
     }
   }
+
   ngOnInit(): void {
+    console.log(this.statusModal);
+
     this.authServices.getAllCourses().subscribe(
       (data: any[]) => {
         this.courses = data;
@@ -71,7 +85,14 @@ export class SignUpComponent implements OnInit {
       this.authServices.registerUser(userDto).subscribe(
         (response) => {
           console.log('Usuario registrado con éxito:', response);
-          this.router.navigate(['/Auth/login']);
+          this.userIdEvent.emit(String(response.id));
+          this.closeModal();
+
+          this.showNotification(
+            'Correcto!',
+            'Estudiante Registrado',
+            'success'
+          );
         },
         (error: HttpErrorResponse) => {
           console.log('Error capturado al registrar usuario:', error);
@@ -85,10 +106,6 @@ export class SignUpComponent implements OnInit {
     } else {
       console.log('Formulario inválido:', this.registerForm);
     }
-  }
-
-  sesionActive() {
-    localStorage.setItem('prueba', 'true');
   }
 
   showNotification(title: string, message: string, type: string) {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard-sidebar',
@@ -9,7 +10,8 @@ import { Router } from '@angular/router';
 export class DashboardSidebarComponent implements OnInit {
   collapseShow = 'hidden';
   activeLink: string = '';
-  constructor(private router: Router) {}
+  userEmail: unknown = 'email';
+  constructor(private router: Router, private authServices: AuthService) {}
 
   setActiveLink(link: string) {
     this.activeLink = link;
@@ -38,5 +40,7 @@ export class DashboardSidebarComponent implements OnInit {
     } else {
       this.activeLink = statuSidebar;
     }
+    this.userEmail = this.authServices.getUserEmail();
+    console.log(this.userEmail);
   }
 }

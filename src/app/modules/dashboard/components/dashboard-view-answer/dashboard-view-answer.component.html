@@ -1,0 +1,30 @@
+<section class="border rounded-3xl">
+  <div class="container md:px-6 md:py-12 mx-auto border-l-cyan-600">
+    <h1 class="text-2xl font-semibold text-gray-800">Materia: {{ subject }}</h1>
+
+    <div class="mt-8 space-y-8 lg:mt-12">
+      <div *ngFor="let quiz of quizList" class="p-8 rounded-lg bg-blue-500">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4">
+          {{ quiz.topic }}
+        </h2>
+
+        <div
+          *ngFor="let question of quiz.questions"
+          class="mb-6 p-4 rounded-lg bg-blue-400"
+        >
+          <h3 class="font-semibold text-gray-100 mb-2">
+            {{ question.question }}
+          </h3>
+          <ul class="list-disc ml-6 mb-2">
+            <li *ngFor="let option of question.options" class="text-gray-200">
+              {{ option }}
+            </li>
+          </ul>
+          <p class="font-semibold text-gray-100">
+            Respuesta correcta: {{ question.correct_answer }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

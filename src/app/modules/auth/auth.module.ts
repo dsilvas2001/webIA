@@ -8,6 +8,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { DashboardModule } from '../dashboard/dashboard.module';
 import { ComponentsModule } from '../shared/components/components.module';
 import { SharedModule } from '../shared/shared.module';
+import { AuthService } from '../../core/auth/auth.service';
 
 @NgModule({
   declarations: [SignInComponent, SignUpComponent],
@@ -19,5 +20,6 @@ import { SharedModule } from '../shared/shared.module';
     ComponentsModule,
     SharedModule,
   ],
+  providers: [AuthService],
 })
 export class AuthModule {}

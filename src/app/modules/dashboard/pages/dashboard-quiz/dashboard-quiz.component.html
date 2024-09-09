@@ -1,0 +1,99 @@
+<div class="flex flex-col flex-auto min-w-0">
+  <!-- Main -->
+  <div class="flex-auto md:p-6">
+    <div class="text-3xl font-bold leading-6 text-slate-800 mb-4">
+      Evaluacion en Linea
+    </div>
+
+    <div class="flex py-3 justify-center pr-12 gap-4">
+      <div class="p-0">
+        <label
+          for="mostrarQuiz"
+          class="px-5 py-2.5 w-64 text-lg flex justify-evenly font-medium text-white items-center bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center cursor-pointer"
+        >
+          <i class="fa-sharp fa-solid fa-pencil"></i> Generar Quiz
+        </label>
+        <input
+          id="mostrarQuiz"
+          (click)="openModal()"
+          type="submit"
+          class="hidden"
+        />
+      </div>
+    </div>
+
+    <div
+      *ngIf="!isLoading; else loadingSpinner"
+      class="shadow-lg rounded-lg overflow-hidden mx-4 mt-30 md:mx-10"
+    >
+      <div class="overflow-x-auto md:overflow-x-visible">
+        <!-- tab -->
+        <div
+          class="text-base pb-2 font-medium text-center bg-gray-100 text-gray-500 border-gray-200"
+        >
+          <ul class="flex justify-center gap-2 flex-wrap -mb-px">
+            <li class="me-2">
+              <a
+                (click)="setActiveTab('quiz')"
+                [ngClass]="{
+                  'border-blue-600 text-blue-600': activeTab === 'quiz',
+                }"
+                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600 hover:border-blue-600 cursor-pointer"
+                >Quiz</a
+              >
+            </li>
+            <li class="me-2">
+              <a
+                (click)="setActiveTab('answers')"
+                [ngClass]="{
+                  'border-blue-600 text-blue-600': activeTab === 'answers'
+                }"
+                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-600 hover:border-blue-600 cursor-pointer"
+                >Ver Respuesta</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div *ngIf="activeTab === 'quiz'">
+          <app-dashboard-previus-quiz [quizList]="quizList" [subject]="subject">
+          </app-dashboard-previus-quiz>
+        </div>
+
+        <div *ngIf="activeTab === 'answers'">
+          <app-dashboard-view-answer [quizList]="quizList" [subject]="subject">
+          </app-dashboard-view-answer>
+        </div>
+
+        <!-- Diseño en tarjetas para pantallas pequeñas -->
+      </div>
+    </div>
+
+    <app-notifications
+      [statusnotification]="statusnotification"
+      [title]="notificationTitle"
+      [message]="notificationMessage"
+      [type]="notificationType"
+    ></app-notifications>
+
+    <ng-template #loadingSpinner>
+      <div class="flex items-center justify-center h-[50vh]">
+        <div class="flex items-center justify-center">
+          <div
+            class="w-24 h-24 border-t-4 border-blue-500 border-solid rounded-full animate-spin"
+          ></div>
+          <div class="ml-4 text-lg text-blue-500 font-semibold">
+            Cargando...
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <app-dashboard-modal-generate-quiz
+      [statusModal]="statusModal"
+      (closeModalEvent)="closeModal()"
+      (quizEvent)="onQuizReceived($event)"
+    >
+    </app-dashboard-modal-generate-quiz>
+  </div>
+</div>
